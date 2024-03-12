@@ -57,6 +57,7 @@ public class Main {
 
             switch (choice2){
                 case 0:
+                    write();
                     running = false;
                     break;
                 case 1:
@@ -153,7 +154,42 @@ public class Main {
 
 
         }
-    public void write(){
+    public static void write() throws IOException {
+        String users = "users.txt";
+        String accounts = "accounts.txt";
+        String balance = "balance.txt";
+        String transaction_history = "transactions.txt";
 
+        File users1 = new File(users);
+        File accounts1 = new File(accounts);
+        File balance1 = new File(balance);
+        File transaction_history1 = new File(transaction_history);
+
+        BufferedWriter users2 = new BufferedWriter(new FileWriter(users1));
+        BufferedWriter accounts2 = new BufferedWriter(new FileWriter(accounts1));
+        BufferedWriter balance2 = new BufferedWriter(new FileWriter(balance1));
+        BufferedWriter transactions2 = new BufferedWriter(new FileWriter(transaction_history1));
+
+        for(User user : USERS){
+            users2.write(user.getAccount_number()+","+user.getPassword()+"\n");
+        }
+        for(Account account : ACCOUNTS){
+            accounts2.write(account.getAccount_number()+","+account.getName()+","+account.getEmail()+"\n");
+        }
+        for(Balance balanced : BALANCE){
+            balance2.write(balanced.getAccount_number()+","+balanced.getBalance()+"\n");
+        }
+        for(Transaction transactions : TRANSACTIONS){
+            transactions2.write(transactions.getFrom_account_number()+","+transactions.getTo_account_number()+","+transactions.getAmount()+"\n");
+        }
+
+        users2.flush();
+        users2.close();
+        accounts2.flush();
+        accounts2.close();
+        transactions2.flush();
+        transactions2.close();
+        balance2.flush();
+        balance2.close();
     }
 }
